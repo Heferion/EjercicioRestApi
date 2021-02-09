@@ -1,0 +1,10 @@
+{
+    "db-connections":{
+        "mongodb":{
+            "host":"cluster0.s2t57.mongodb.net",
+            "user":"acad_res_api_user",
+            "password":"hSksJVxeFsPmaBkZ",
+            "dbname":"AcademicDB"
+        }
+    }
+}
