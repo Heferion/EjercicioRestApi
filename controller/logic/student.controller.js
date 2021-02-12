@@ -5,6 +5,7 @@ const config = require("config");
 
 /** Helper */
 const helper = require("../helpers/general.helper");
+const notHelper = require("../helpers/notification.helper")
 
 exports.createStudent = (req, res, next) => {
     let std = {
@@ -15,7 +16,7 @@ exports.createStudent = (req, res, next) => {
         phone: req.body.phone,
         career: req.body.career
     };
-    studentDto.save(std, (err, data) => {
+    studentDto.create(std, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
@@ -28,17 +29,21 @@ exports.createStudent = (req, res, next) => {
             name: std.name,
             lastname: std.lastname,
             username: std.code,
-            passwrd: helper.encrypedPassword(req.body.passwrd),
+            passwrd: helper.EncryptPassword(req.body.passwrd),
             role: r
         };
-        userDto.save(user, (err, u) => {
+        userDto.create(user, (err, u) => {
             if (err) {
-                return res.status(400).json(
-                    {
-                        error: err
-                    }
-                );
+                studentDto.delete({ _id: data._id }, (e, data) => {
+                    return res.status(400).json(
+                        {
+                            error: err
+                        }
+                    );
+                });
+
             }
+            notHelper.sendSMS(std.phone);
             res.status(201).json(
                 {
                     info: data
@@ -65,6 +70,7 @@ exports.updateStudent = (req, res, next) => {
                 }
             );
         }
+
         res.status(201).json(
             {
                 info: data
@@ -75,7 +81,7 @@ exports.updateStudent = (req, res, next) => {
 };
 
 exports.getAll = (req, res, next) => {
-    
+
     studentDto.getAll({}, (err, data) => {
         if (err) {
             return res.status(400).json(
@@ -94,8 +100,8 @@ exports.getAll = (req, res, next) => {
 };
 
 exports.getByCode = (req, res, next) => {
-    
-    studentDto.getByCode({code: req.params.code}, (err, data) => {
+
+    studentDto.getByCode({ code: req.params.code }, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
@@ -112,9 +118,9 @@ exports.getByCode = (req, res, next) => {
     });
 };
 
-exports.deleteStudent = () =>{
-    
-    studentDto.delete({_id: req.body.id}, (err, data) => {
+exports.deleteStudent = () => {
+
+    studentDto.delete({ _id: req.body.id }, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
