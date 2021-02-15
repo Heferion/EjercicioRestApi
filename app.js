@@ -20,8 +20,24 @@ app.get("/", (req, res, next)=>{
     res.send("welcome to academic rest api");
 });
 
+// Student Routes Loading
 const studentRoutes = require ("./routes/student.routes");
 studentRoutes(app);
+
+// Teacher Routes Loading
+
+const teacherRoutes = require ("./routes/teacher.routes");
+teacherRoutes(app);
+
+// Course Routes Loading
+
+const courseRoutes = require ("./routes/course.routes");
+courseRoutes(app);
+
+// Period Routes Loading
+
+const periodRoutes = require ("./routes/period.routes");
+periodRoutes(app);
 
 app.listen(port, ()=>{
     console.log("server is running")
