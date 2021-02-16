@@ -1,4 +1,4 @@
 module.exports = (req, res, next)=>{
-    console.log(`Ip cliente: ${requ.connection.remoteAddress}`);
+    console.log(`Ip cliente: ${req.connection.remoteAddress}`);
     next();
 }

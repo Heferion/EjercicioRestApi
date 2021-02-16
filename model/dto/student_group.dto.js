@@ -12,7 +12,7 @@ schema.statics = {
     getAll: function(query, cb){
         this.find(query, cb);
     },
-    getByCode: function(data, cb){
+    getByCode: function(query, cb){
         this.find(query, cb);
     },
     update: function(query,data,cb){
