@@ -2,10 +2,12 @@
 const moongose = require("mongoose");
 const valitator = require("mongoose-unique-validator");
 
+const Schema= mongoose.Schema;
+
 /** Schema creation */
-const studentSchema = new moongose.Schema({
+const studentSchema = new Schema({
     code:{
-        type: "Number",
+        type: "String",
         require: true,
         unique: true
     },

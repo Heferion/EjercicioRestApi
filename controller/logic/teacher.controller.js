@@ -56,12 +56,13 @@ exports.createTeacher = (req, res, next) => {
 
 exports.updateTeacher = (req, res, next) => {
     let teacher = {
-        code: req.body.code,
+        document: req.body.document,
         name: req.body.name,
         lastname: req.body.lastname,
         email: req.body.email,
         phone: req.body.phone,
-        career: req.body.career
+        office: req.body.office,
+        department: req.body.department
     };
     teacherDto.update({ _id: req.body.id }, teacher, (err, data) => {
         if (err) {
@@ -72,7 +73,7 @@ exports.updateTeacher = (req, res, next) => {
             );
         }
 
-        if (req.body.olddocument = !undefined) {
+        if (req.body.olddocument) {
             let r = config.get("roles").teacher;
             let user = {
                 name: teacher.name,

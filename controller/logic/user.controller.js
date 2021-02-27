@@ -54,3 +54,17 @@ exports.getAll = (req, res, next) => {
     });
 };
 
+exports.deleteUser = () => {
+    userDto.delete({ _id: req.body.id }, (err, data) => {
+        if (err) {
+            return res.status(400).json(
+                {
+                    error: err
+                }
+            );
+        }
+
+        res.status(204).json();
+
+    });
+}

@@ -1,5 +1,6 @@
 /** Packages */
 const moongose = require("mongoose");
+const validator= require("mongoose-unique-validator");
 
 /** Schema creation */
 const userSchema = new moongose.Schema({
@@ -27,5 +28,6 @@ const userSchema = new moongose.Schema({
 
 });
 
-/** Schema exportation */
+/** schema exportation */
+userSchema.plugin(validator);
 module.exports = userSchema;

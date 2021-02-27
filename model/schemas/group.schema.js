@@ -1,29 +1,32 @@
 /** Packages */
-const moongose = require("mongoose");
-const mongooseUniqueValidator = require("mongoose-unique-validator");
+const mongoose= require("mongoose");
+
+const Schema= mongoose.Schema;
 
 /** Schema creation */
-const groupSchema = new moongose.Schema({
+const groupSchema = new Schema({
     course_id:{
-        type: mongooseUniqueValidator.Schema.Types.ObjectId,
-        ref: "coll_course",
-        require: true
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"coll_course",
+        require: true  
     },
     period_id:{
-        type: mongooseUniqueValidator.Schema.Types.ObjectId,
-        ref: "coll_period",
-        require: true
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"coll_period",
+        require: true  
     },
+
     teacher_id:{
-        type: mongooseUniqueValidator.Schema.Types.ObjectId,
-        ref: "coll_teacher",
-        require: true
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"coll_teacher",
+        require: true  
     },
     number:{
         type:"Number",
-        required: true       
+        require=true
     }
+    
 });
 
-/** Schema exportation */
+/** schema exportation */
 module.exports = groupSchema;

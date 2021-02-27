@@ -5,7 +5,7 @@ const validator = require("mongoose-unique-validator");
 /** Schema creation */
 const teacherSchema = new moongose.Schema({
     document:{
-        type: "Number",
+        type: "String",
         require: true,
         unique: true
     },

@@ -1,13 +1,17 @@
 /** Dto */
-const courseDto = require("../../model/dto/course.dto");
+const programDto = require("../../model/dto/program.dto");
 const config = require("config");
 
-exports.createCourse = (req, res, next) => {
-    let course = {
+
+exports.createProgram = (req, res, next) => {
+    let program = {
         code: req.body.code,
-        name: req.body.name
+        name: req.body.name,
+        directorname: req.body.directorname,
+        faculty_id: req.body.faculty_id
+
     };
-    courseDto.create(course, (err, data) => {
+    programDto.create(program, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
@@ -23,12 +27,14 @@ exports.createCourse = (req, res, next) => {
     });
 };
 
-exports.updateCourse = (req, res, next) => {
-    let course = {
+exports.updateProgram = (req, res, next) => {
+    let program = {
         code: req.body.code,
-        name: req.body.name
+        name: req.body.name,
+        directorname: req.body.directorname,
+        faculty_id: req.body.faculty_id
     };
-    courseDto.update({ _id: req.body.id }, course, (err, data) => {
+    programDto.update({ _id: req.body.id }, program, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
@@ -36,19 +42,17 @@ exports.updateCourse = (req, res, next) => {
                 }
             );
         }
-
         res.status(201).json(
             {
                 info: data
             }
         );
-
     });
 };
 
 exports.getAll = (req, res, next) => {
 
-    courseDto.getAll({}, (err, data) => {
+    programDto.getAll({}, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
@@ -61,32 +65,32 @@ exports.getAll = (req, res, next) => {
                 info: data
             }
         );
-
     });
 };
 
-exports.getByCode = (req, res, next) => {
 
-    courseDto.getByCode({ code: req.params.code }, (err, data) => {
-        if (err) {
+exports.getByCode = (req, res, next)=>{
+
+    programDto.getByCode({code: req.params.code},(err,data)=>{
+        if (err){
             return res.status(400).json(
                 {
-                    error: err
+                    error:err
                 }
             );
         }
+
         res.status(200).json(
             {
-                info: data
+                info:data
             }
         );
-
+        
     });
 };
 
-exports.deleteCourse = () => {
-
-    courseDto.delete({ _id: req.body.id }, (err, data) => {
+exports.deleteProgram = () => {
+    programDto.delete({ _id: req.body.id }, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
@@ -94,7 +98,8 @@ exports.deleteCourse = () => {
                 }
             );
         }
+
         res.status(204).json();
 
     });
-};
+}

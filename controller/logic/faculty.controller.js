@@ -1,13 +1,17 @@
 /** Dto */
-const courseDto = require("../../model/dto/course.dto");
+/** Dto */
+const facultyDto = require("../../model/dto/faculty.dto");
 const config = require("config");
 
-exports.createCourse = (req, res, next) => {
-    let course = {
+
+exports.createFaculty = (req, res, next) => {
+    let faculty = {
         code: req.body.code,
-        name: req.body.name
+        name: req.body.name,
+        deanname: req.body.deanname
+
     };
-    courseDto.create(course, (err, data) => {
+    facultyDto.create(faculty, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
@@ -23,12 +27,13 @@ exports.createCourse = (req, res, next) => {
     });
 };
 
-exports.updateCourse = (req, res, next) => {
-    let course = {
+exports.updateFaculty = (req, res, next) => {
+    let faculty = {
         code: req.body.code,
-        name: req.body.name
+        name: req.body.name,
+        deanname: req.body.deanname
     };
-    courseDto.update({ _id: req.body.id }, course, (err, data) => {
+    facultyDto.update({ _id: req.body.id }, faculty, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
@@ -36,19 +41,17 @@ exports.updateCourse = (req, res, next) => {
                 }
             );
         }
-
         res.status(201).json(
             {
                 info: data
             }
         );
-
     });
 };
 
 exports.getAll = (req, res, next) => {
 
-    courseDto.getAll({}, (err, data) => {
+    facultyDto.getAll({}, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
@@ -61,32 +64,32 @@ exports.getAll = (req, res, next) => {
                 info: data
             }
         );
-
     });
 };
 
-exports.getByCode = (req, res, next) => {
 
-    courseDto.getByCode({ code: req.params.code }, (err, data) => {
-        if (err) {
+exports.getByCode = (req, res, next)=>{
+
+    facultyDto.getByCode({code: req.params.code},(err,data)=>{
+        if (err){
             return res.status(400).json(
                 {
-                    error: err
+                    error:err
                 }
             );
         }
+
         res.status(200).json(
             {
-                info: data
+                info:data
             }
         );
-
+        
     });
 };
 
-exports.deleteCourse = () => {
-
-    courseDto.delete({ _id: req.body.id }, (err, data) => {
+exports.deleteFaculty = () => {
+    facultyDto.delete({ _id: req.body.id }, (err, data) => {
         if (err) {
             return res.status(400).json(
                 {
@@ -94,7 +97,8 @@ exports.deleteCourse = () => {
                 }
             );
         }
+
         res.status(204).json();
 
     });
-};
+}
